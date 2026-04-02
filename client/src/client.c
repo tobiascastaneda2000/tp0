@@ -33,7 +33,7 @@ int main(void)
 	puerto = config_get_string_value (config, "PUERTO");
 	valor = config_get_string_value (config, "CLAVE");
 
-	log_info(logger, "%s",valor);
+	log_info(logger, "CLAVE: %s",valor);
 
 	
 
@@ -111,6 +111,7 @@ void leer_consola(t_log* logger)
 
         //Verifico que puntero no haya recibido error
         if (leido==NULL) {
+			perror("Puntero recibio un error al intentar leer la consola");
             break;
         }
 
@@ -148,6 +149,7 @@ void paquete(int conexion)
 		leido = readline("> ");
 
         if (leido==NULL) {
+			perror("Puntero recibio un error al intentar agregar lineas al paquete");
             break;
         }
 
@@ -157,6 +159,7 @@ void paquete(int conexion)
 		}
 		else{
 			agregar_a_paquete(paquete ,leido, strlen(leido)+1 );
+			free(leido);
 
 		}
 
