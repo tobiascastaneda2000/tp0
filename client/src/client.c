@@ -44,7 +44,7 @@ int main(void)
 
 
 	/* ---------------- LEER DE CONSOLA ---------------- */
-
+    log_info(logger, "Leemos la consola");
 	leer_consola(logger);
 
 
@@ -53,9 +53,11 @@ int main(void)
 	// ADVERTENCIA: Antes de continuar, tenemos que asegurarnos que el servidor esté corriendo para poder conectarnos a él
 
 	// Creamos una conexión hacia el servidor
+	log_info(logger, "Creamos la conexion hacia el servidor");
 	conexion = crear_conexion(ip, puerto);
 
 	// Enviamos al servidor el valor de CLAVE como mensaje
+	log_info(logger, "Intentamos enviar mensaje con su valor");
 	enviar_mensaje(valor,conexion);
 
 	// Armamos y enviamos el paquete
