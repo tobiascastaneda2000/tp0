@@ -59,8 +59,10 @@ int main(void)
 	enviar_mensaje(valor,conexion);
 
 	// Armamos y enviamos el paquete
+	log_info(logger, "Ahora enviaremos un paquete, escribe mensajes y cuando quieras terminar, envia la CADENA VACIA");
 	paquete(conexion);
 
+    log_info(logger, "Terminando programa");
 	terminar_programa(conexion, logger, config);
 
 	
@@ -71,7 +73,11 @@ int main(void)
 
 t_log* iniciar_logger(void)
 {
-	t_log* nuevo_logger = log_create("tp0.log", "tp0", true ,LOG_LEVEL_INFO);
+	t_log* nuevo_logger = log_create("tp0.log", "logger_tp0", true ,LOG_LEVEL_INFO);
+	if(nuevo_logger == NULL){
+		perror("Error al crear el archivo LOGGER");
+        exit(EXIT_FAILURE);
+	}
 
 	return nuevo_logger;
 }
@@ -82,7 +88,8 @@ t_config* iniciar_config(void)
 	if (nuevo_config == NULL) {
     // ¡No se pudo crear el config!
     // Terminemos el programa
-	  abort();
+	    perror("Error al crear el config");
+        exit(EXIT_FAILURE);
 }
 
 	return nuevo_config;
@@ -130,6 +137,8 @@ void paquete(int conexion)
 	// Ahora toca lo divertido!
 	char* leido;
 	t_paquete* paquete = crear_paquete();
+
+	
 
 	// Leemos y esta vez agregamos las lineas al paquete
     while (1) {
